@@ -29,6 +29,10 @@ celerybeat-schedule
 *.key
 *.crt
 *.env.hermes
+*.env.hermes
+backend/.env.dev
+backend/.env.prod
+
 secrets/
 
 # Hermes
