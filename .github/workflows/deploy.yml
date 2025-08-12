@@ -89,7 +89,7 @@ jobs:
             cd quackternion-dev
             
             echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env.prod
-            echo "DEBUG=${{ secrets.DJANGO_DEBUG }}" ">> .env.prod
+            echo "DEBUG=${{ secrets.DJANGO_DEBUG }}" >> .env.prod
             echo "ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}" >> .env.prod
             echo "CORS_ALLOWED_ORIGINS=${{ secrets.CORS_ALLOWED_ORIGINS }}" >> .env.prod
             echo "CSRF_TRUSTED_ORIGINS=${{ secrets.CSRF_TRUSTED_ORIGINS }}" >> .env.prod
