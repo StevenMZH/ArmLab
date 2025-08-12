@@ -68,6 +68,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd quackternion-dev
+            docker network create nginx-proxy-net || true
             docker compose --env-file .env.dev down
             docker compose --env-file .env.dev up -d --build
 
@@ -98,5 +99,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd quackternion
+            docker network create nginx-proxy-net || true
             docker compose --env-file .env.prod down
             docker compose --env-file .env.prod up -d --build
