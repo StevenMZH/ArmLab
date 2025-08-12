@@ -2,7 +2,7 @@
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
-    container_name: nginx-proxy
+    container_name: "${PROJECT_NAME}_nginx-proxy"
     restart: always
     ports:
       - "80:80"
@@ -18,7 +18,7 @@ services:
 
   nginx-proxy-acme:
     image: nginxproxy/acme-companion
-    container_name: nginx-proxy-acme
+    container_name: "${PROJECT_NAME}_nginx-proxy-acme"
     depends_on:
       - nginx-proxy
     restart: always
@@ -35,7 +35,7 @@ services:
   
   backend:
     build: ./backend
-    container_name: "backend"
+    container_name: "${PROJECT_NAME}_backend"
     command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
     environment:
       VIRTUAL_HOST: ${DOMAIN}
@@ -50,7 +50,7 @@ services:
 
   postgres:
     image: postgres:15
-    container_name: postgres
+    container_name: "${PROJECT_NAME}_postgres"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -60,7 +60,7 @@ services:
   frontend:
     build:
       context: ./frontend
-    container_name: frontend
+    container_name: "${PROJECT_NAME}_frontend"
     expose:
       - "80"
     environment:
