@@ -1,5 +1,5 @@
-from core.quaternions.quaternion import Quaternion, rotate_vector_by_quaternion
-from core.quaternions.rigidbody import Rigidbody
+from prototype.quaternions.quaternion import Quaternion, rotate_vector_by_quaternion
+from prototype.quaternions.rigidbody import Rigidbody
 import numpy as np
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 

@@ -1,5 +1,5 @@
-from core.quaternions.quaternion import Quaternion
-from core.quaternions.coords import Coords
+from prototype.quaternions.quaternion import Quaternion
+from prototype.quaternions.coords import Coords
 
 class Rigidbody:
     def __init__(self, x, y, z, quaternion:Quaternion = Quaternion(1,0,0,0)):

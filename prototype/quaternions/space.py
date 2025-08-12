@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-from core.quaternions.rigidbody import Rigidbody
+from prototype.quaternions.rigidbody import Rigidbody
 
 class Space:
     def __init__(self, objects: list[Rigidbody]):
