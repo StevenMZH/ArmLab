@@ -50,3 +50,4 @@ volumes:
 networks:
   nginx-proxy-net:
     external: true
+
