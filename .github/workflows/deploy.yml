@@ -57,7 +57,8 @@ jobs:
           username: ${{ secrets.DEV_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "."
-          target: "/var/www/quackternion-dev"
+          target: "~/quackternion-dev"
+
 
       - name: Deploy on dev server
         uses: appleboy/ssh-action@v1.2.1
@@ -66,7 +67,7 @@ jobs:
           username: ${{ secrets.DEV_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/quackternion-dev
+            cd quackternion-dev
             docker compose --env-file .env.dev down
             docker compose --env-file .env.dev up -d --build
 
@@ -86,7 +87,8 @@ jobs:
           username: ${{ secrets.PROD_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "."
-          target: "/var/www/quackternion"
+          target: "~/quackternion"
+
 
       - name: Deploy on prod server
         uses: appleboy/ssh-action@v1.2.1
@@ -95,6 +97,6 @@ jobs:
           username: ${{ secrets.PROD_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/quackternion
+            cd quackternion
             docker compose --env-file .env.prod down
             docker compose --env-file .env.prod up -d --build
