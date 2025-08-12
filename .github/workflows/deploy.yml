@@ -21,6 +21,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Create network nginx-proxy-net
+        run: docker network create nginx-proxy-net || true
+
       - name: Build all images from docker-compose
         run: docker compose -f docker-compose.yml --env-file .env.dev build
 
