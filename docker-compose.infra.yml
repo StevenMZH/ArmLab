@@ -14,6 +14,8 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
     labels:
       com.github.nginx-proxy.nginx: "true"
+    networks:
+      - nginx-proxy-net
 
   nginx-proxy-acme:
     image: nginxproxy/acme-companion
@@ -30,3 +32,9 @@ services:
       - ./nginx/vhost.d:/etc/nginx/vhost.d
       - ./nginx/html:/usr/share/nginx/html
       - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - nginx-proxy-net
+
+networks:
+  nginx-proxy-net:
+    external: true
