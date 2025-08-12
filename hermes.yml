@@ -1,0 +1,14 @@
+servers:
+  smooth-server:
+    server_name: smooth-server
+    server_credentials: .env.hermes
+    env: .env.dev
+
+    # apps    
+    apps:
+      Server-Playground:
+        app_name: Server-Playground 
+        repository: https://github.com/StevenMZH/Armlab.git
+        branch: main
+        env: .env.dev
+        services: "docker-compose.yml"

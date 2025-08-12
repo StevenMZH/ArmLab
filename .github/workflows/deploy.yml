@@ -1,0 +1,102 @@
+name: CI/CD with Docker
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+build-and-test:
+  name: Build & Test All Docker Images
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build all images from docker-compose
+      run: docker compose -f docker-compose.yml --env-file .env.dev build
+
+    - name: Run containers in detached mode
+      run: docker compose -f docker-compose.yml --env-file .env.dev up -d
+
+    - name: Wait for services to be ready
+      run: sleep 20
+
+    # Test backend
+    - name: Test backend health
+      run: curl -f http://localhost:8000 || (docker compose logs && exit 1)
+
+    # Test frontend
+    - name: Test frontend health
+      run: curl -f http://localhost || (docker compose logs && exit 1)
+
+    - name: Stop containers
+      run: docker compose -f docker-compose.yml --env-file .env.dev down
+
+  # Deploy Dev
+  deploy-dev:
+    name: Deploy to Development Server
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy files to dev server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          username: ${{ secrets.DEV_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "."
+          target: "/var/www/quackternion-dev"
+
+      - name: Deploy on dev server
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          username: ${{ secrets.DEV_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/quackternion-dev
+            docker compose --env-file .env.dev down
+            docker compose --env-file .env.dev up -d --build
+
+  # Deploy Main
+  deploy-prod:
+    name: Deploy to Production Server
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy files to prod server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "."
+          target: "/var/www/quackternion"
+
+      - name: Deploy on prod server
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/quackternion
+            docker compose --env-file .env.prod down
+            docker compose --env-file .env.prod up -d --build

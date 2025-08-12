@@ -1,2 +1,117 @@
-__pycache__
-venv
+# -------------------- General -------------------- #
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Celery beat schedule
+celerybeat-schedule
+
+# Sensible data
+*.pem
+*.key
+*.crt
+*.env.hermes
+secrets/
+
+# Hermes
+*.hermes.yml
+*.hermes.*.yml
+hermes.*.yml
+
+# -------------------- Django REST -------------------- #
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.db
+db.sqlite3
+
+# Django migrations
+**/migrations/
+**/migrations/*.py
+**/migrations/*.pyc
+
+# Media & static (if generated)
+media/
+staticfiles/
+static/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# MyPy, Pylint, etc.
+.mypy_cache/
+.pytest_cache/
+pylint-report.txt
+pylint-global.txt
+
+
+
+# -------------------- Django REST -------------------- #
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.db
+db.sqlite3
+
+# Django migrations
+**/migrations/
+**/migrations/*.py
+**/migrations/*.pyc
+
+# Media & static (if generated)
+media/
+staticfiles/
+static/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# MyPy, Pylint, etc.
+.mypy_cache/
+.pytest_cache/
+pylint-report.txt
+pylint-global.txt
+
+

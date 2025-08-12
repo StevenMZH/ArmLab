@@ -1,0 +1,143 @@
+@import url('./styles/normalize.css');
+@import url('./styles/themes.css');
+
+div {
+    border: 0;
+    padding: 0;
+}
+
+/* html, body, #root, main */
+html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body, main {
+    display: flex;
+    flex-direction: column;
+    
+    position: relative; 
+    margin: 0;
+
+    background-color: var(--bg-dark);
+    font-family: var(--font-main);
+    color: var(--text-sec);
+    font-weight: 400;
+    font-size: 14px;
+    font-optical-sizing: auto;
+}
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+main {
+    align-items: center;
+    gap: 25px;
+    padding: 20px;
+    width: clamp(390px, 85vw, 1000px);
+}
+
+
+/* a, buttom, input, select */
+a, button, input, select, textarea, option {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    margin: 0;
+
+    background-color: var(--bg-light);    
+    color: var(--text-sec);
+
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+a, button{
+    position: relative;
+    overflow: hidden;        
+    z-index: 0;     
+    display: inline-block;
+}
+a::before,
+button::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+a:hover::before,
+button:hover::before{
+  background: rgba(255, 255, 255, 0.126);
+}
+
+
+
+input {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    line-height: 0;
+}
+
+textarea {
+    border-radius: 10px;
+    width: 100%;
+}
+
+/* Text */
+label, p {
+    text-align: justify;
+}
+
+ul, ol {
+  list-style-position: inside;
+  padding-left: 1em;
+  margin: 0;        
+}
+
+/*  */
+hr {
+    margin: 15px 0;
+}
+
+/* multimedia */
+img, video {
+    border-radius: 10px;
+}
+
+
+/* ScrollBar */
+::-webkit-scrollbar {
+    width: 10px;
+    height:12px;
+}  
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-light);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+} 
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bg-light);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+/* Vertical */
+@media (max-width: 440px) {
+    body::-webkit-scrollbar {
+        display:none;
+    }
+}

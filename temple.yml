@@ -1,0 +1,54 @@
+workspaces:
+  nginx:
+    package: nginx
+    modules:
+    - init
+    paths:
+      docker-compose.yml: docker-compose.yml
+  backend:
+    package: django-rest
+    modules:
+    - init
+    - nginx
+    - postgres
+    paths:
+      workspace_domain: '{{workspace_domain}}'
+      domain: '{{domain}}'
+      email: '{{email}}'
+      .env.dev: .env.dev
+      .env.prod: .env.prod
+      .gitignore: .gitignore
+      .dockerignore: .dockerignore
+      dockerfile: dockerfile
+      requirements.txt: requirements.txt
+      settings.py: '{{workspace_name}}\settings.py'
+      urls.py: '{{workspace_name}}\urls.py'
+      user_auth.models.py: user_auth\models.py
+      user_auth.serializers.py: user_auth\serializers.py
+      user_auth.urls.py: user_auth\urls.py
+      user_auth.views.py: user_auth\views.py
+  frontend:
+    package: react-spa
+    modules:
+    - init
+    - nginx
+    paths:
+      workspace_domain: '{{workspace_domain}}'
+      email: '{{email}}'
+      main.jsx: src\main.jsx
+      index.css: src\index.css
+      App.jsx: src\App.jsx
+      App.css: src\App.css
+      Landing.jsx: src\pages\Landing.jsx
+      Card.jsx: src\components\Card.jsx
+      Grid.jsx: src\components\Grid.jsx
+      ThemeSwitch.jsx: src\components\ThemeSwitch.jsx
+      normalize.css: src\styles\normalize.css
+      themes.css: src\styles\themes.css
+      MainLayout.jsx: src\layouts\MainLayout.jsx
+      AppProvider.jsx: src\AppProvider.jsx
+      logo.svg: public\logo.svg
+      default.jpg: public\default.jpg
+      docker-compose.yml: docker-compose.yml
+      nginx.conf: nginx.conf
+      workspace_backend: backend

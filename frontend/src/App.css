@@ -1,0 +1,72 @@
+.text-main {
+    color: var(--text-main);
+    font-weight: 600;
+    display: block;
+    width: 100%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+    padding: 20px;
+    background-color: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.floating-panel {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+
+
+.hl1 {
+    background-color: var(--highlight1);
+    color: var(--text-highlight);
+}
+.hl2 {
+    background-color: var(--highlight2);
+    color: var(--text-highlight);
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+.full-w {
+    width: 100%;
+}
+.full-h {
+    height: 100%;
+}
+.full-view {
+    width: 100%;
+    height: 100%;
+}
+
+.gap5 {
+    gap: 5px;
+}
+.gap10 {
+    gap: 10px;
+}

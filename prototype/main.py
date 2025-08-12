@@ -1,8 +1,8 @@
 import math
 import numpy as np
-from core.quaternions.quaternion import Quaternion
-from core.quaternions.object import Cube
-from core.quaternions.space import Space
+from prototype.quaternions.quaternion import Quaternion
+from prototype.quaternions.object import Cube
+from prototype.quaternions.space import Space
 
 if __name__ == "__main__":
     # Crear Cubos

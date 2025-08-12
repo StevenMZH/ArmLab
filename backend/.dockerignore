@@ -1,0 +1,49 @@
+# Archivos y carpetas de Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+
+# Archivos de configuración del IDE/editores
+.vscode/
+.idea/
+*.swp
+
+# # Archivos de entorno
+# .env
+# *.env
+
+# Archivos de log y temporales
+*.log
+*.tmp
+*.bak
+*.db
+*.sqlite3
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de Git
+.git/
+.gitignore
+
+# Archivos de pruebas
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+nosetests.xml
+test-results/
+
+# Archivos de builds o distribuciones
+build/
+dist/
+*.egg-info/
+*.egg
