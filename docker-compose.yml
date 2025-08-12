@@ -4,9 +4,9 @@ services:
     container_name: "${PROJECT_NAME}_backend"
     command: "gunicorn backend.wsgi:application --bind 0.0.0.0:${BACKEND_PORT}"
     environment:
-      VIRTUAL_HOST: ${DOMAIN}
+      VIRTUAL_HOST: ${BACKEND_DOMAIN}
       VIRTUAL_PORT: ${BACKEND_PORT} 
-      LETSENCRYPT_HOST: ${DOMAIN}
+      LETSENCRYPT_HOST: ${BACKEND_DOMAIN}
       LETSENCRYPT_EMAIL: ${EMAIL}
     env_file:
       - .env.prod
