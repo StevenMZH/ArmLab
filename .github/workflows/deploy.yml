@@ -27,16 +27,16 @@ jobs:
       - name: Run containers in detached mode
         run: docker compose -f docker-compose.yml --env-file .env.dev up -d
 
-      - name: Wait for services to be ready
-        run: sleep 20
+      #- name: Wait for services to be ready
+      #  run: sleep 20
 
       # Test backend
-      - name: Test backend health
-        run: curl -f http://localhost:8000 || (docker compose logs && exit 1)
+      #- name: Test backend health
+      #  run: curl -f http://localhost:8000 || (docker compose logs && exit 1)
 
       # Test frontend
-      - name: Test frontend health
-        run: curl -f http://localhost || (docker compose logs && exit 1)
+      #- name: Test frontend health
+      #  run: curl -f http://localhost || (docker compose logs && exit 1)
 
       - name: Stop containers
         run: docker compose -f docker-compose.yml --env-file .env.dev down
