@@ -18,9 +18,9 @@
     --text-sec: hsl(0 0 80%); 
 
     --highlight1: hsl(243, 68%, 48%);
+    --highlight1: hsl(35, 50%, 35%);
     --highlight2: hsl(0, 0%, 80%, 30%); 
-    --text-highlight: hsl(0 0 95%); 
-  }
+    --text-highlight: hsl(0 0 95%);   }
 }
 
 @media (prefers-color-scheme: light) {
@@ -33,10 +33,11 @@
     --text-main: hsl(0 0 5%);
     --text-sec: hsl(0 0 30%);
 
-    --highlight1: hsl(243, 68%, 48%);
+    --highlight1: hsl(35, 68%, 48%);
+    --highlight1: hsl(35, 50%, 35%);
     --highlight2: hsl(247, 18%, 15%); 
     --text-highlight: hsl(0 0 95%); 
-  }
+}
 }
 
 body.dark {
@@ -51,6 +52,7 @@ body.dark {
   --text-sec: hsl(0 0 80%); 
 
   --highlight1: hsl(243, 68%, 48%);
+  --highlight1: hsl(35, 50%, 35%);
   --highlight2: hsl(0, 0%, 80%, 30%); 
   --text-highlight: hsl(0 0 95%); 
 }
@@ -64,7 +66,8 @@ body.light {
   --text-main: hsl(0 0 5%);
   --text-sec: hsl(0 0 30%);
 
-  --highlight1: hsl(243, 68%, 48%);
+  --highlight1: hsl(35, 68%, 48%);
+  --highlight1: hsl(35, 50%, 35%);
   --highlight2: hsl(247, 18%, 15%); 
   --text-highlight: hsl(0 0 95%); 
 }
