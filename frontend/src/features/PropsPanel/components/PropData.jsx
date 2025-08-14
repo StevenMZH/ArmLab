@@ -1,4 +1,4 @@
-import Props from "./props";
+import Props from "./Props";
 
 // Data
 export function PropActualValues() {
