@@ -52,6 +52,7 @@ export function SidePanel() {
         {objects.map((obj, idx) => (
           <SimObject
             key={obj.id}
+            id={obj.id}
             name={obj.name}
             isOpen={openIndex === idx}
             onToggle={() => setOpenIndex(openIndex === idx ? null : idx)}

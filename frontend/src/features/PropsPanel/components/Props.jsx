@@ -28,7 +28,7 @@ export function Props({
   return (
     <div className={`props column full-w ${className}`}>
       {contractible ? (
-        <button className="full-w row-left gap5 prop-button" onClick={toggleOpen} style={identation}>
+        <button className="full-w row-left gap10 prop-button" onClick={toggleOpen} style={identation}>
           {icon && <img src={icon} alt={`${name} icon`} className="icon" />}
           <p>{name}</p>
         </button>

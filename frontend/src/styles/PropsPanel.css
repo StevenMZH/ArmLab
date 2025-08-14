@@ -14,7 +14,49 @@ main .side-panel {
     overflow-x: hidden;  
 }
 
+/* Text */
+.side-panel p {
+    font-weight: 500;
+    font-size: 14px;
+}
+.side-panel .object-props p {
+    font-weight: 400;
+    font-size: 13px;
+}
+.side-panel .prop-group p{
+    font-weight: 400;
+    font-size: 12px;
+}
+/* Button Text */
+.side-panel button {
+    font-weight: 600;
+    font-size: 13px;
+}
+.side-panel input, .side-panel select, .side-panel .card{
+    font-weight: 400;
+    font-size: 12px;
+}
+.side-panel .object-props button {
+    font-weight: 500;
+    font-size: 11px;
+    padding: 8px;
+}
+
+
 /* OBJECT-PROPS */
+.side-panel .object-selected > .prop-button p {
+    color: hsl(207.2, 69.1%, 45.69%);
+}
+.dark .side-panel .object-selected > .prop-button p {
+    color: hsl(218.14, 62.11%, 62.75%);
+}
+.side-panel .object-selected > .prop-button img {
+    filter: invert(50%) sepia(60%) saturate(10000%) hue-rotate(194deg) brightness(100%) contrast(100%);
+}
+.dark .side-panel .object-selected > .prop-button .icon {
+    filter: invert(70%) sepia(20%) saturate(10000%) hue-rotate(194deg) brightness(100%) contrast(100%);
+}
+
 .side-panel .object .prop-button  {
     background-color: rgba(255, 255, 255, 0);
     border: #fff0;
@@ -22,13 +64,18 @@ main .side-panel {
 .object-props{
     padding: 0 0 10px 0;
 }
-.side-panel .object-delete {
-    width: 70%;
+.side-panel .object .object-delete {
+    width: 80%;
     margin-top: 10px;
-    background-color: hsl(0, 70%, 63%); 
+    background-color: hwb(0 42% 0%); 
+    font-weight: 500;
+    font-size: 13px;
 }
 
 /* PROPS CONTAINER */
+.side-panel .prop-group {
+    margin-bottom: 10px;
+}
 .side-panel .prop-container {
     padding: 10px 0px;
 }
@@ -62,7 +109,6 @@ main .side-panel {
 /* PROPS EXTENSIONS */
 .side-panel .prop-data {
     padding: 0px 0 5px 0;
-    margin-bottom: 10px;
 }
 .side-panel .prop-data select{
     width: 70%;

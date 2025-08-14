@@ -4,6 +4,8 @@
 @import url('./styles/PropsPanel.css');
 @import url('./styles/scene.css');
 
+@import url('./styles/ThemeSwitch.css');
+
 div {
     border: 0;
     padding: 0;
@@ -77,6 +79,8 @@ a, button{
     overflow: hidden;        
     z-index: 0;     
     display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
 }
 a::before,
 button::before{
@@ -129,19 +133,23 @@ h1, h2, h3, h4, h5, h6 {
 
 /*  */
 hr {
-    margin: 15px 0;
+    margin: 5px 20px;
+    border: 0.5px solid #fff3;
+}
+.light hr {
+    border: 0.5px solid #0003;
 }
 
 /* multimedia */
-img, video {
+video {
     border-radius: 10px;
 }
 
 
 /* ScrollBar */
 ::-webkit-scrollbar {
-    width: 12px;
-    height:12px;
+    width: 8px;
+    height: 8px;
 }  
 ::-webkit-scrollbar-track {
     background: var(--bg-dark);
