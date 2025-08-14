@@ -28,6 +28,7 @@ export function PropActualValues() {
             </div>
         </Props>
       </div>
+      <div className="full-w"><hr/></div>
     </Props>
   );
 }
@@ -41,6 +42,7 @@ export function PropInit({ position, setPosition, orientation, setOrientation, f
         <PropInitOrientation orientation={orientation} setOrientation={setOrientation} />
         <PropFrame frame={frame} setFrame={setFrame} currentId={object_id}/>
       </div>
+      <div className="full-w"><hr/></div>
     </Props>
   );
 }
@@ -157,6 +159,7 @@ export function PropTransformation({ transformations, setTransformations }) {
         <button className="hl2" onClick={handleAddTranslation}>Add Translation</button>
         <button className="hl2" onClick={handleAddRotation}>Add Rotation</button>
       </div>
+      <div className="full-w"><hr/></div>
     </Props>
   );
 }

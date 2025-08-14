@@ -133,7 +133,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /*  */
 hr {
-    margin: 15px 0;
+    margin: 5px 20px;
+    border: 0.5px solid #fff3;
+}
+.light hr {
+    border: 0.5px solid #0003;
 }
 
 /* multimedia */
@@ -144,8 +148,8 @@ video {
 
 /* ScrollBar */
 ::-webkit-scrollbar {
-    width: 12px;
-    height:12px;
+    width: 8px;
+    height: 8px;
 }  
 ::-webkit-scrollbar-track {
     background: var(--bg-dark);
