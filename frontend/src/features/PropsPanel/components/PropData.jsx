@@ -1,11 +1,10 @@
 import Props from "./props";
-import { useState } from "react";
 
 // Data
 export function PropActualValues() {
   return (
     <Props name="ActualValues" icon="PropsPanel/transformation.png" className="column" padding={30} contractible={true}>
-      <div className="column full-w">
+      <div className="column full-w prop-group">
         <Props name="Quaternion" icon="PropsPanel/quaternion.svg" className="" padding={45} contractible={false}>
           <div className="prop-data full-w row center gap10">
               <div className="row gap5"> <p>w</p> <div className="card object-value">0</div> </div>
@@ -34,13 +33,13 @@ export function PropActualValues() {
 }
 
 // Initial Props
-export function PropInit({ position, setPosition, orientation, setOrientation, frame, setFrame }) {
+export function PropInit({ position, setPosition, orientation, setOrientation, frame, setFrame, object_id }) {
   return (
     <Props name="Base Properties" icon="PropsPanel/transformation.png" className="column" padding={30} contractible={true}>
-      <div className="column full-w">
+      <div className="column full-w prop-group">
         <PropInitPosition position={position} setPosition={setPosition} />
         <PropInitOrientation orientation={orientation} setOrientation={setOrientation} />
-        <PropFrame frame={frame} setFrame={setFrame} />
+        <PropFrame frame={frame} setFrame={setFrame} currentId={object_id}/>
       </div>
     </Props>
   );
@@ -84,9 +83,10 @@ export function PropInitOrientation({ orientation, setOrientation }) {
   );
 }
 
-export function PropFrame({ frame, setFrame}) {
+export function PropFrame({ frame, setFrame, currentId }) {
   const objects = JSON.parse(localStorage.getItem("Objects")) || [];
-  <PropFrame frame={frame} setFrame={setFrame} objects={objects} />
+  const filteredObjects = objects.filter(obj => obj.id !== currentId);
+
   return (
     <Props name="Reference Frame" icon="PropsPanel/reference.png" className="row icon-size3" padding={45} contractible={false}>
       <div className="prop-data full-w row center gap10">
@@ -96,7 +96,7 @@ export function PropFrame({ frame, setFrame}) {
           onChange={e => setFrame(e.target.value)}
         >
           <option value="Origen">Origen</option>
-          {objects.map(obj => (
+          {filteredObjects.map(obj => (
             <option key={obj.id} value={obj.id}>{obj.name}</option>
           ))}
         </select>
@@ -134,7 +134,7 @@ export function PropTransformation({ transformations, setTransformations }) {
 
   return (
     <Props name="Transformations" icon="PropsPanel/transformation.png" className="column" padding={30} contractible={true}>
-      <div className="column full-w">
+      <div className="column full-w prop-group">
         {transformations.map((item, idx) =>
           item.type === "translation"
             ? <PropTranslation
@@ -153,7 +153,7 @@ export function PropTransformation({ transformations, setTransformations }) {
               />
         )}
       </div>
-      <div className="row-right prop-container">
+      <div className="row-right prop-container gap5">
         <button className="hl2" onClick={handleAddTranslation}>Add Translation</button>
         <button className="hl2" onClick={handleAddRotation}>Add Rotation</button>
       </div>

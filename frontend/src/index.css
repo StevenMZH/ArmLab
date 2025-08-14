@@ -4,6 +4,8 @@
 @import url('./styles/PropsPanel.css');
 @import url('./styles/scene.css');
 
+@import url('./styles/ThemeSwitch.css');
+
 div {
     border: 0;
     padding: 0;
@@ -77,6 +79,8 @@ a, button{
     overflow: hidden;        
     z-index: 0;     
     display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
 }
 a::before,
 button::before{
@@ -133,7 +137,7 @@ hr {
 }
 
 /* multimedia */
-img, video {
+video {
     border-radius: 10px;
 }
 

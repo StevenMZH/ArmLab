@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { PropActualValues, PropInit, PropTransformation } from "./PropData";
 
-export function SimObject({ name = '', isOpen, onToggle, data, updateData, onDelete }) {
-  // Siempre contractible, maneja el estado de abierto/cerrado
+export function SimObject({ name = '', isOpen, onToggle, data, updateData, onDelete, id }) {
   const open = isOpen;
   const handleToggle = onToggle;
 
   return (
-    <div className={`props object column full-w contractible`}>
+    <div className={`props object column full-w contractible ${open ? " object-selected" : ""}`}>
       <button className="full-w row-left gap5 prop-button" onClick={handleToggle} style={{ paddingLeft: "15px" }}>
         <div className="full-w row gap10">
           <img src="PropsPanel/object.png" alt={`${name} icon`} className="icon" />
@@ -23,6 +22,7 @@ export function SimObject({ name = '', isOpen, onToggle, data, updateData, onDel
       {open && (
         <div className="object-props full-w column">
           <PropActualValues/>
+          
           <PropInit
             position={data.position}
             setPosition={pos => updateData({ position: pos })}
@@ -30,12 +30,15 @@ export function SimObject({ name = '', isOpen, onToggle, data, updateData, onDel
             setOrientation={ori => updateData({ orientation: ori })}
             frame={data.frame}
             setFrame={frame => updateData({ frame })}
+            object_id = {id}
           />
+
           <PropTransformation
             transformations={data.transformations}
             setTransformations={t => updateData({ transformations: t })}
           />
-          <button className="full-w object-delete" onClick={onDelete}>Delete</button>
+          
+          <button className="full-w hl1 object-delete" onClick={onDelete}>Delete</button>
         </div>
       )}
     </div>
