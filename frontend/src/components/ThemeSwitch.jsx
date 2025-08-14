@@ -27,7 +27,9 @@ export function ThemeSwitch({ className = '' }) {
           type="checkbox"
           checked={theme === 'light'}
           onChange={handleToggle}
-        />
+        >
+        </input>
+
         <span className="slider">
           <div className="star star_1" />
           <div className="star star_2" />

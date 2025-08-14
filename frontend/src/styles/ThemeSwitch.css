@@ -27,11 +27,11 @@
 .theme-switch-wrapper .slider:before {
   position: absolute;
   content: "";
-  height: 1.2em;
-  width: 1.2em;
+  height: 1em;
+  width: 1em;
   border-radius: 20px;
   left: 0.5em;
-  bottom: 0.4em;
+  bottom: 0.5em;
   transition: 0.4s;
   transition-timing-function: cubic-bezier(0.81, -0.04, 0.38, 1.5);
   box-shadow: inset 8px -4px 0px 0px var(--text-main);
@@ -40,8 +40,12 @@
   background-color: var(--highlight2);
 }
 .theme-switch-wrapper .switch input:checked + .slider:before {
-  transform: translateX(1.4em);
-  box-shadow: inset 15px -4px 0px 15px var(--highlight1);
+  transform: translateX(1.5em);
+  box-shadow: inset 15px -4px 0px 15px #0000;
+  /* box-shadow: inset 15px -4px 0px 15px var(--highlight1); */
+  background-image: url("duck.png");
+  background-repeat: no-repeat;
+  background-size: 20px;
 }
 .theme-switch-wrapper .star {
   background-color: var(--text-main);
@@ -69,11 +73,17 @@
 .theme-switch-wrapper .cloud {
   width: 3.5em;
   position: absolute;
-  bottom: -1.4em;
-  left: -1.1em;
+  bottom: -1.2em;
+  left: -1.2em;
   opacity: 0;
   transition: all 0.4s;
 }
 .theme-switch-wrapper .switch input:checked ~ .slider .cloud {
   opacity: 1;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+  z-index: 1000;
 }
