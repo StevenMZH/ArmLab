@@ -1,5 +1,4 @@
-import Props from "./props";
-import { useState } from "react";
+import Props from "./Props";
 
 // Data
 export function PropActualValues() {
