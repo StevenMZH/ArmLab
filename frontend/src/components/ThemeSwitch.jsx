@@ -1,11 +1,22 @@
 import { useEffect, useState } from 'react';
 
 export function ThemeSwitch({ className = '' }) {
-  const [theme, setTheme] = useState('light');
+  const getInitialTheme = () => {
+    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      return 'light';
+    } 
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'dark'; 
+  };
+
+  const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
     document.body.classList.remove('light', 'dark');
     document.body.classList.add(theme);
+    localStorage.setItem('theme', theme); // guardar preferencia
   }, [theme]);
 
   const toggleTheme = () => {

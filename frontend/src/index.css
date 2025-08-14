@@ -1,6 +1,9 @@
 @import url('./styles/normalize.css');
 @import url('./styles/themes.css');
 
+@import url('./styles/PropsPanel.css');
+@import url('./styles/scene.css');
+
 div {
     border: 0;
     padding: 0;
@@ -11,6 +14,14 @@ html, body, #root {
     height: 100%;
     width: 100%;
     margin: 0;
+}
+
+header{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 15px;
 }
 
 body, main {
@@ -34,10 +45,14 @@ body, main {
     justify-content: start;
 }
 main {
+    flex: 1;
+    overflow-y: auto;
     align-items: center;
     gap: 25px;
     padding: 20px;
-    width: clamp(390px, 85vw, 1000px);
+    /* width: clamp(390px, 85vw, 1000px); */
+    width: 100%;
+    padding-top: 0;
 }
 
 
@@ -45,7 +60,7 @@ main {
 a, button, input, select, textarea, option {
     padding: 10px;
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 10px;
     margin: 0;
 
     background-color: var(--bg-light);    
@@ -76,16 +91,19 @@ button::before{
 
 a:hover::before,
 button:hover::before{
-  background: rgba(255, 255, 255, 0.126);
+  background: rgba(125, 125, 125, 0.218);
 }
 
 
 
 input {
-    padding: 10px;
+    padding: 3px;
     cursor: pointer;
     transition: background-color 0.3s;
     line-height: 0;
+    width: 50px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 textarea {
@@ -104,6 +122,11 @@ ul, ol {
   margin: 0;        
 }
 
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
 /*  */
 hr {
     margin: 15px 0;
@@ -117,7 +140,7 @@ img, video {
 
 /* ScrollBar */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 12px;
     height:12px;
 }  
 ::-webkit-scrollbar-track {
@@ -141,3 +164,4 @@ img, video {
         display:none;
     }
 }
+

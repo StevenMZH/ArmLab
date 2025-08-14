@@ -9,7 +9,7 @@ export default function Layout() {
         <Header/>
       </header>
       
-      <main>
+      <main className='full-view flex column'>
         <Outlet />
       </main>
 

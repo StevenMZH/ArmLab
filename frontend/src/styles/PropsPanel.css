@@ -1,0 +1,87 @@
+/* SIDE PANEL */
+main .side-panel {
+    width: 400px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding: 15px 5px 5px 5px;
+    max-height: 100%;  
+    overflow-y: auto;   
+    overflow-x: hidden;  
+}
+
+/* OBJECT-PROPS */
+.side-panel .object .prop-button  {
+    background-color: rgba(255, 255, 255, 0);
+    border: #fff0;
+}
+.object-props{
+    padding: 0 0 10px 0;
+}
+.side-panel .object-delete {
+    width: 70%;
+    margin-top: 10px;
+    background-color: hsl(0, 70%, 63%); 
+}
+
+/* PROPS CONTAINER */
+.side-panel .prop-container {
+    padding: 10px 0px;
+}
+
+/* PROPS */
+.side-panel .props .card {
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.side-panel .props .icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;   
+}
+.dark .side-panel .props .icon {
+    filter: invert(100%) brightness(100%);
+}
+
+.side-panel .props .icon-size2 {
+    width: 16px;
+    height: 16px;
+}
+.side-panel .props .icon-size3 img {
+    width: 15px;
+    height: 15px;
+}
+
+/* PROPS EXTENSIONS */
+.side-panel .prop-data {
+    padding: 0px 0 5px 0;
+    margin-bottom: 10px;
+}
+.side-panel .prop-data select{
+    width: 70%;
+    padding: 5px;
+}
+
+.side-panel .prop-title {
+    padding: 5px 10px;
+}
+
+.side-panel .delete-button{
+    padding: 4px 7px;
+    border-radius: 5px;
+}
+
+.side-panel .icon.delete-icon{
+    width: 16px;
+    height: 16px;
+}
+.dark .side-panel .props .icon.delete-icon.icon {
+    filter: invert(100%) brightness(80%);
+}
