@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+import { QuaternionScene } from '../components/QuaternionCube';
 import * as THREE from 'three';
+
+
 
 export function Scene({ className = '' }) {
   const [objects, setObjects] = useState([]);
@@ -86,7 +89,7 @@ export function Scene({ className = '' }) {
 
   return (
     <div className={`card scene ${className}`}>
-      <h2>Scene Objects</h2>
+      {/* <h2>Scene Objects</h2>
       <ul>
         {objects.map(obj => (
           <li key={obj.id} style={{ marginBottom: '1rem' }}>
@@ -102,7 +105,8 @@ export function Scene({ className = '' }) {
             </div>
           </li>
         ))}
-      </ul>
+      </ul> */}
+      <QuaternionScene/>
     </div>
   );
 }
