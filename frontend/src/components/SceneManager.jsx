@@ -71,7 +71,7 @@ export function SceneManager() {
 
   return (
     <div className="full-view row gap5">
-      <Scene objects={objects} finalValues={finalValues} />
+      <Scene objects={objects} setObjects={setObjects} />
       <PropsPanel objects={objects} setObjects={setObjects} finalValues={finalValues} />
     </div>
   );
