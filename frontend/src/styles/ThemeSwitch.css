@@ -43,7 +43,7 @@
   transform: translateX(1.5em);
   box-shadow: inset 15px -4px 0px 15px #0000;
   /* box-shadow: inset 15px -4px 0px 15px var(--highlight1); */
-  background-image: url("/duck.png");
+  background-image: url("duck.png");
   background-repeat: no-repeat;
   background-size: 20px;
 }
