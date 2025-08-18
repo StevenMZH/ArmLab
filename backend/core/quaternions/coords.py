@@ -16,3 +16,6 @@ class Coords:
         self.y = self.y - other.y
         self.z = self.z - other.z
         return self
+
+    def __repr__(self):
+        return f"Coords({self.x}, {self.y}, {self.z})"

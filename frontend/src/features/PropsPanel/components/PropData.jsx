@@ -1,37 +1,45 @@
 import Props from "./Props";
 
-// Data
-export function PropActualValues() {
+export function PropActualValues({ finalValues }) {
+  const quaternion = finalValues?.quaternion || { w: 0, x: 0, y: 0, z: 0 };
+  const position = finalValues?.position || { x: 0, y: 0, z: 0 };
+  const orientation = finalValues?.orientation || { x: 0, y: 0, z: 0 };
+
   return (
-    <Props name="ActualValues" icon="PropsPanel/transformation.png" className="column" padding={30} contractible={true}>
+    <Props name="Current Values" icon="PropsPanel/transformation.png" className="column" padding={30} contractible={true}>
       <div className="column full-w prop-group">
-        <Props name="Quaternion" icon="PropsPanel/quaternion.svg" className="" padding={45} contractible={false}>
+        <Props name="Quaternion" icon="PropsPanel/quaternion.svg" padding={45} contractible={false}>
           <div className="prop-data full-w row center gap10">
-              <div className="row gap5"> <p>w</p> <div className="card object-value">0</div> </div>
-              <div className="row gap5"> <p>x</p> <div className="card object-value">0</div> </div>
-              <div className="row gap5"> <p>y</p> <div className="card object-value">0</div> </div>
-              <div className="row gap5"> <p>z</p> <div className="card object-value">0</div> </div>
+            <div className="row gap5"><p>w</p> <div className="card object-value">{quaternion.w.toFixed(3)}</div></div>
+            <div className="row gap5"><p>x</p> <div className="card object-value">{quaternion.x.toFixed(3)}</div></div>
+            <div className="row gap5"><p>y</p> <div className="card object-value">{quaternion.y.toFixed(3)}</div></div>
+            <div className="row gap5"><p>z</p> <div className="card object-value">{quaternion.z.toFixed(3)}</div></div>
           </div>
         </Props>
-        <Props name="Position" icon="PropsPanel/translation.png" className="" padding={45} contractible={false}>
+
+        <Props name="Position" icon="PropsPanel/translation.png" padding={45} contractible={false}>
           <div className="prop-data full-w row center gap10">
-              <div className="row gap5"> <p>x</p> <div className="card object-value">0</div> </div>
-              <div className="row gap5"> <p>y</p> <div className="card object-value">0</div> </div>
-              <div className="row gap5"> <p>z</p> <div className="card object-value">0</div> </div>
+            <div className="row gap5"><p>x</p> <div className="card object-value">{position.x.toFixed(2)}</div></div>
+            <div className="row gap5"><p>y</p> <div className="card object-value">{position.y.toFixed(2)}</div></div>
+            <div className="row gap5"><p>z</p> <div className="card object-value">{position.z.toFixed(2)}</div></div>
           </div>
         </Props>
-        <Props name="Orientation" icon="PropsPanel/rotation.png" className="" padding={45} contractible={false}>
-            <div className="prop-data full-w row center gap10">
-              <div className="row gap5"> <p>x</p> <div className="card object-value">0</div> </div>
-              <div className="row gap5"> <p>y</p> <div className="card object-value">0</div> </div>
-              <div className="row gap5"> <p>z</p> <div className="card object-value">0</div> </div>
-            </div>
+
+        <Props name="Orientation" icon="PropsPanel/rotation.png" padding={45} contractible={false}>
+          <div className="prop-data full-w row center gap10">
+            <div className="row gap5"><p>x</p> <div className="card object-value">{orientation.x.toFixed(2)}</div></div>
+            <div className="row gap5"><p>y</p> <div className="card object-value">{orientation.y.toFixed(2)}</div></div>
+            <div className="row gap5"><p>z</p> <div className="card object-value">{orientation.z.toFixed(2)}</div></div>
+          </div>
         </Props>
       </div>
       <div className="full-w"><hr/></div>
     </Props>
   );
 }
+
+export default PropActualValues;
+
 
 // Initial Props
 export function PropInit({ position, setPosition, orientation, setOrientation, frame, setFrame, object_id }) {
@@ -86,8 +94,10 @@ export function PropInitOrientation({ orientation, setOrientation }) {
 }
 
 export function PropFrame({ frame, setFrame, currentId }) {
-  const objects = JSON.parse(localStorage.getItem("Objects")) || [];
-  const filteredObjects = objects.filter(obj => obj.id !== currentId);
+  const objectsDict = JSON.parse(localStorage.getItem("Objects")) || {};
+  const filteredObjects = Object.entries(objectsDict)
+    .filter(([id]) => id !== String(currentId)) // filtra por key, no por obj.id
+    .map(([id, obj]) => ({ id, name: obj.name }));
 
   return (
     <Props name="Reference Frame" icon="PropsPanel/reference.png" className="row icon-size3" padding={45} contractible={false}>
