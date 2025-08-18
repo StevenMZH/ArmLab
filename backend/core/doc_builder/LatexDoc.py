@@ -2,6 +2,7 @@ import subprocess
 import os
 import math
 from math import cos, sin, atan2, asin, degrees
+from pathlib import Path
 
 class LatexDoc:
     def __init__(self):
@@ -204,7 +205,6 @@ class LatexDoc:
             "\\pagestyle{fancy}\n"
             "\\fancyhead[L]{\\shorttitle}\n"
             "\\fancyhead[R]{\\thepage}\n"
-            "\\begin{document}\n"
         )
 
         with open(filename, "w", encoding="utf-8") as f:
@@ -214,13 +214,10 @@ class LatexDoc:
         return filename
 
     
-    def build_pdf(self, filename="objects"):
-        tex_file = f"{filename}.tex"
-        pdf_file = f"{filename}.pdf"
-        self.build_tex(tex_file)
-
-        subprocess.run(["pdflatex", tex_file], check=True)
-        return pdf_file
+    def build_pdf(self, tex_file:str):
+        self.build_tex(tex_file+".tex")
+        tex_path = Path(tex_file).with_suffix(".tex").resolve()
+        subprocess.run( ["pdflatex", "-interaction=nonstopmode", str(tex_path)], check=True )
 
 
 def formatN(num: float, n: int = 4) -> str:

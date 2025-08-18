@@ -86,10 +86,11 @@ class SceneProcedures_View(APIView):
             
         unique_id = uuid.uuid4()
 
-        tmp_dir = Path("/app/tmp")
-        tmp_dir.mkdir(exist_ok=True)
+        # tmp
+        tmp_dir = Path.cwd() / "tmp"
+        tmp_dir.mkdir(parents=True, exist_ok=True)
 
-        # Clean tmp
+        # clean tmp
         for file in tmp_dir.glob("*"):
             try:
                 file.unlink()
@@ -97,18 +98,19 @@ class SceneProcedures_View(APIView):
                 pass
 
         # Generate file
-        if(data["doc"] == "pdf"):
+        if data["doc"] == "pdf":
             pdf_filename = tmp_dir / f"scene_{unique_id}.pdf"        
             doc.build_pdf(str(pdf_filename).replace(".pdf",""))
             response = FileResponse(open(pdf_filename, "rb"), as_attachment=True, filename="scene.pdf")
             return response
-        
-        elif(data["doc"] == "latex"):
+
+        elif data["doc"] == "latex":
             tex_filename = tmp_dir / f"scene_{unique_id}.tex"        
             doc.build_tex(str(tex_filename))
-            response = FileResponse(open(tex_filename, "rb"), as_attachment=True, filename="scene.pdf")
+            response = FileResponse(open(tex_filename, "rb"), as_attachment=True, filename="scene.tex")
             return response
-        
+
         else:
             return Response({}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            
+        
+        
