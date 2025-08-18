@@ -91,11 +91,11 @@ class SceneProcedures_View(APIView):
         tmp_dir.mkdir(parents=True, exist_ok=True)
 
         # clean tmp
-        for file in tmp_dir.glob("*"):
-            try:
-                file.unlink()
-            except Exception:
-                pass
+        # for file in tmp_dir.glob("*"):
+        #     try:
+        #         file.unlink()
+        #     except Exception:
+        #         pass
 
         # Generate file
         if data["doc"] == "pdf":

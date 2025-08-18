@@ -198,7 +198,7 @@ class LatexDoc:
             "\\doublespacing\n"
             "\\usepackage{times}\n"
             "\\usepackage{parskip}\n"
-            "%\\setlength{\\parindent}{1.27cm}\n"
+            "\\setlength{\\parindent}{1.27cm}\n"
             "\\pagestyle{fancy}\n"
             "\\fancyhead[L]{\\shorttitle}\n"
             "\\fancyhead[R]{\\thepage}\n"
