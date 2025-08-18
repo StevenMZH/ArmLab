@@ -190,18 +190,15 @@ class LatexDoc:
     def build_tex(self, filename="objects.tex"):
         block = (
             "\\documentclass[16pt]{article}\n"
-            "% Codificación y márgenes\n"
             "\\usepackage[utf8]{inputenc}\n"
             "\\usepackage[margin=1in]{geometry}\n"
             "\\usepackage{fancyhdr}\n"
             "\\usepackage{amsmath, amssymb}\n"
-            "% Fuentes y espaciado\n"
             "\\usepackage{setspace}\n"
             "\\doublespacing\n"
             "\\usepackage{times}\n"
             "\\usepackage{parskip}\n"
             "%\\setlength{\\parindent}{1.27cm}\n"
-            "% Encabezado APA\n"
             "\\pagestyle{fancy}\n"
             "\\fancyhead[L]{\\shorttitle}\n"
             "\\fancyhead[R]{\\thepage}\n"
@@ -214,11 +211,15 @@ class LatexDoc:
         return filename
 
     
-    def build_pdf(self, tex_file:str):
-        self.build_tex(tex_file+".tex")
+    def build_pdf(self, tex_file: str):
         tex_path = Path(tex_file).with_suffix(".tex").resolve()
-        subprocess.run( ["pdflatex", "-interaction=nonstopmode", str(tex_path)], check=True )
+        if not tex_path.exists():
+            raise FileNotFoundError(f"Archivo .tex no encontrado: {tex_path}")
 
+        subprocess.run(
+            ["pdflatex", "-interaction=nonstopmode", f"-output-directory={tex_path.parent}", str(tex_path)],
+            check=True
+        )
 
 def formatN(num: float, n: int = 4) -> str:
     num_redondeado = round(num, n)

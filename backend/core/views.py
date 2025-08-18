@@ -99,10 +99,17 @@ class SceneProcedures_View(APIView):
 
         # Generate file
         if data["doc"] == "pdf":
-            pdf_filename = tmp_dir / f"scene_{unique_id}.pdf"        
-            doc.build_pdf(str(pdf_filename).replace(".pdf",""))
-            response = FileResponse(open(pdf_filename, "rb"), as_attachment=True, filename="scene.pdf")
-            return response
+            pdf_filename = tmp_dir / f"scene_{unique_id}.pdf"
+            tex_filename = tmp_dir / f"scene_{unique_id}.tex"
+
+            # Construir el PDF a partir del TEX
+            doc.build_pdf(tex_filename)
+
+            # Revisar existencia y permisos
+            if os.path.exists(pdf_filename):
+                return FileResponse(open(pdf_filename, "rb"), as_attachment=True, filename="scene.pdf")
+            else:
+                return Response({"error": "PDF no encontrado"}, status=404)
 
         elif data["doc"] == "latex":
             tex_filename = tmp_dir / f"scene_{unique_id}.tex"        
