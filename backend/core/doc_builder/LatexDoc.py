@@ -12,7 +12,6 @@ class LatexDoc:
     
     def QObject_definition(self):
         self.content.append((
-            "\\newcommand{\shorttitle}{Quackternion: Posicion y Orientacion de Objetos en un espacio 3D}"
             "\\begin{document}"
 
             "\\section*{Definicion de Object} \n"
@@ -187,7 +186,9 @@ class LatexDoc:
     def get_content(self):
         return "\n".join(self.content)
     
-    def build_tex(self, filename="objects.tex"):
+    def build_tex(self, filename="objects.tex", method="quaternions"):
+        shorttile = "\\newcommand{\shorttitle}{Quackternion: Posicion y Orientacion de Objetos en un espacio 3D}" if method == "quaternions" else ""
+        
         block = (
             "\\documentclass[16pt]{article}\n"
             "\\usepackage[utf8]{inputenc}\n"
@@ -199,6 +200,7 @@ class LatexDoc:
             "\\usepackage{times}\n"
             "\\usepackage{parskip}\n"
             "\\setlength{\\parindent}{1.27cm}\n"
+            f"{shorttile}"
             "\\pagestyle{fancy}\n"
             "\\fancyhead[L]{\\shorttitle}\n"
             "\\fancyhead[R]{\\thepage}\n"
