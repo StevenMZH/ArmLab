@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-three/drei": "^10.7.3",
     "@react-three/fiber": "^9.3.0",
+    "file-saver": "^2.0.5",
     "install": "^0.13.0",
     "npm": "^11.5.2",
     "react": "^19.1.1",

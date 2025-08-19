@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { saveAs } from "file-saver";
 
 export const useDownloadDoc = () => {
   const [loading, setLoading] = useState(false);
@@ -19,31 +20,29 @@ export const useDownloadDoc = () => {
 
       const data = {
         method: "quaternions",
-        objects: objects
+        objects: objects,
+        doc: docType,
       };
 
-      const apiUrl = process.env.REACT_APP_API_URL || "https://api.dev.quackternion.purpleblue.site";
+      const apiUrl =
+        process.env.REACT_APP_API_URL ||
+        "https://api.dev.quackternion.purpleblue.site";
+
       const response = await fetch(`${apiUrl}/api/procedure/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...data, doc: docType }),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         throw new Error(`Error downloading file: ${response.statusText}`);
       }
 
+      // ✅ Usamos file-saver para soportar móviles
       const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = docType === "pdf" ? "scene.pdf" : "scene.tex";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
+      saveAs(blob, docType === "pdf" ? "scene.pdf" : "scene.tex");
 
     } catch (err) {
       console.error(err);
