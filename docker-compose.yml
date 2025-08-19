@@ -38,6 +38,8 @@ services:
       VIRTUAL_PORT: 80 
       LETSENCRYPT_HOST: ${DOMAIN}
       LETSENCRYPT_EMAIL: ${EMAIL}
+      REACT_APP_API_URL: ${BACKEND_DOMAIN}
+
     depends_on:
       - backend
     restart: always

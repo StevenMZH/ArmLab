@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PropActualValues, PropInit, PropTransformation } from "./PropData";
 
-export function SimObject({ name = '', isOpen, onToggle, data, updateData, onDelete, id }) {
+export function SimObject({ name = '', isOpen, onToggle, data, updateData, onDelete, id, finalValues}) {
   const open = isOpen;
   const handleToggle = onToggle;
 
@@ -21,7 +21,7 @@ export function SimObject({ name = '', isOpen, onToggle, data, updateData, onDel
 
       {open && (
         <div className="object-props full-w column">
-          <PropActualValues/>
+          <PropActualValues finalValues={finalValues}/>
           
           <PropInit
             position={data.position}

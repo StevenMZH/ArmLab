@@ -57,6 +57,7 @@ class SpatialStates:
         pos = dot(self.states, self.init)
         return pos
 
+
     def latex_position(self, var:str = ''):
         position = self.__matrix_to_latex(self.position())
         
@@ -90,7 +91,6 @@ class SpatialStates:
             var = f"{var} = "
 
         return f"\[{var}{mult} * {init}{r}\]"
-
     
     def latex_orientate(self, angle: float, var:str, x=False, y=False, z=False, result:bool=False):
         def homo_transf_orientate_latex(angle: float, axis: str = 'z') -> str:
@@ -137,7 +137,6 @@ class SpatialStates:
             r = " = " + self.__matrix_to_latex(self.position())
 
         return f"\[{var}{mult} * {init}{r}\]"
-
 
     def __matrix_to_latex(self, matrix):
         def num_parser(valor):
@@ -232,60 +231,61 @@ def DH_symbolic(states, t_values: list, var: str = '', result: bool = True):
 
 
 
-def dh1():
-    theta_1, theta_2, theta_3, L1, L2, L3, L4 = symbols('\\theta_1 \\theta_2 \\theta_3 L1 L2 L3 L4')
-    init = Matrix([[0], [0], [0], [1]])
-    T, pos, latex_out = DH_symbolic(
-        init,
-        [
-            [0, 0, L1, 'pi/2'],
-            [theta_1, 0, L2, 0],
-            [theta_2, 0, L3, 0],
-            [theta_3, 0, L4, 0],
-            [0, 0, 0, 0]
-        ],
-        var="P"
-    )
-    print("Latex process:")
-    print(latex_out)
-
-
-def dh2():
-    q_1, q_2, q_3, L1, L2, L3 = symbols('q_1 q_2 q_3 L1 L2 L3')
-    init = Matrix([[0], [0], [0], [1]])
-    T, pos, latex_out = DH_symbolic(
-        init,
-        [
-            [0, 0, 0, 'pi/2'],
-            [q_1, 0, L1, 0],
-            [q_2, 0, L2, 0],
-            [q_3, 0, L3, 0],
-            [0, 0, 0, 0]
-        ],
-        var="P"
-    )
-    print("Latex process:")
-    print(latex_out)
-    
-def dh3():
-    theta_1, theta_2, theta_3, L1, L2, L3, L4 = symbols('\\theta_1 \\theta_2 \\theta_3 L1 L2 L3 L4')
-    init = Matrix([[0], [0], [0], [1]])
-    T, pos, latex_out = DH_symbolic(
-        init,
-        [
-            [0, 0, 0, 'pi/2'],
-            [0, L1, 0, 0],
-            [theta_1, 0, L2, 0],
-            [theta_2, L3, 0, 0],
-            [0, L4, 0, "-pi/2"],
-            [0, theta_3, 0, "pi/2"],
-            [0, 0, 0, 0]
-        ],
-        var="P"
-    )
-    print("Latex process:")
-    print(latex_out)
-
 
 if __name__ == "__main__":
+    def dh1():
+        theta_1, theta_2, theta_3, L1, L2, L3, L4 = symbols('\\theta_1 \\theta_2 \\theta_3 L1 L2 L3 L4')
+        init = Matrix([[0], [0], [0], [1]])
+        T, pos, latex_out = DH_symbolic(
+            init,
+            [
+                [0, 0, L1, 'pi/2'],
+                [theta_1, 0, L2, 0],
+                [theta_2, 0, L3, 0],
+                [theta_3, 0, L4, 0],
+                [0, 0, 0, 0]
+            ],
+            var="P"
+        )
+        print("Latex process:")
+        print(latex_out)
+
+    def dh2():
+        q_1, q_2, q_3, L1, L2, L3 = symbols('q_1 q_2 q_3 L1 L2 L3')
+        init = Matrix([[0], [0], [0], [1]])
+        T, pos, latex_out = DH_symbolic(
+            init,
+            [
+                [0, 0, 0, 'pi/2'],
+                [q_1, 0, L1, 0],
+                [q_2, 0, L2, 0],
+                [q_3, 0, L3, 0],
+                [0, 0, 0, 0]
+            ],
+            var="P"
+        )
+        print("Latex process:")
+        print(latex_out)
+        
+    def dh3():
+        theta_1, theta_2, theta_3, L1, L2, L3, L4 = symbols('\\theta_1 \\theta_2 \\theta_3 L1 L2 L3 L4')
+        init = Matrix([[0], [0], [0], [1]])
+        T, pos, latex_out = DH_symbolic(
+            init,
+            [
+                [0, 0, 0, 'pi/2'],
+                [0, L1, 0, 0],
+                [theta_1, 0, L2, 0],
+                [theta_2, L3, 0, 0],
+                [0, L4, 0, "-pi/2"],
+                [0, theta_3, 0, "pi/2"],
+                [0, 0, 0, 0]
+            ],
+            var="P"
+        )
+        print("Latex process:")
+        print(latex_out)
+
     dh1()
+    
+    

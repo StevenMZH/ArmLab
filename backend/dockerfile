@@ -5,9 +5,14 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+# Instalar dependencias del sistema + LaTeX mínimo necesario
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
+    texlive-latex-base \
+    texlive-latex-extra \
+    texlive-fonts-recommended \
+    texlive-lang-spanish \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .

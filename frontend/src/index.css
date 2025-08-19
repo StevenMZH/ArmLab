@@ -1,5 +1,6 @@
 @import url('./styles/normalize.css');
 @import url('./styles/themes.css');
+@import url('./styles/mobile.css');
 
 @import url('./styles/PropsPanel.css');
 @import url('./styles/scene.css');
@@ -167,8 +168,8 @@ video {
 }
 
 /* Vertical */
-@media (max-width: 440px) {
-    body::-webkit-scrollbar {
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
         display:none;
     }
 }

@@ -74,6 +74,32 @@ class Quaternion:
     def rotate_z(theta):
         return Quaternion(math.cos(theta / 2), 0, 0, math.sin(theta / 2))
 
+    def to_euler_angles(self):
+        """
+        Convert quaternion to Euler angles (roll, pitch, yaw) in radians.
+        Roll  = rotation around X axis
+        Pitch = rotation around Y axis
+        Yaw   = rotation around Z axis
+        """
+        # Roll (X-axis rotation)
+        sinr_cosp = 2 * (self.w * self.x + self.y * self.z)
+        cosr_cosp = 1 - 2 * (self.x * self.x + self.y * self.y)
+        roll = math.atan2(sinr_cosp, cosr_cosp)
+
+        # Pitch (Y-axis rotation)
+        sinp = 2 * (self.w * self.y - self.z * self.x)
+        if abs(sinp) >= 1:
+            pitch = math.copysign(math.pi / 2, sinp)  # Gimbal lock
+        else:
+            pitch = math.asin(sinp)
+
+        # Yaw (Z-axis rotation)
+        siny_cosp = 2 * (self.w * self.z + self.x * self.y)
+        cosy_cosp = 1 - 2 * (self.y * self.y + self.z * self.z)
+        yaw = math.atan2(siny_cosp, cosy_cosp)
+
+        return roll, pitch, yaw
+
 
 def rotate_vector_by_quaternion(vector, rotation_quaternion):
     q = rotation_quaternion
