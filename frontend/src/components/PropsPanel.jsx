@@ -47,7 +47,7 @@ export function PropsPanel({ objects, setObjects, finalValues }) {
         />
       ))}
 
-      <button className="full-w hl1" onClick={handleAddObject}>
+      <button className="full-w hl1 add_object" onClick={handleAddObject}>
         Add Object
       </button>
     </div>

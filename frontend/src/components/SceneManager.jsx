@@ -4,7 +4,7 @@ import PropsPanel from "./PropsPanel";
 import * as THREE from "three";
 
 export function SceneManager() {
-  // Guardar directamente como diccionario
+  const [showPanel, setShowPanel] = useState(false);
   const [objects, setObjects] = useState(() => {
     const saved = localStorage.getItem("Objects");
     return saved ? JSON.parse(saved) : {};
@@ -70,9 +70,13 @@ export function SceneManager() {
   }, [objects]);
 
   return (
-    <div className="full-view row gap5">
+    <div className="full-view row gap5 scene-manager">
       <Scene objects={objects} setObjects={setObjects} />
-      <PropsPanel objects={objects} setObjects={setObjects} finalValues={finalValues} />
+      <button className="full-view hl1 center sidepanel-open mobile"  onClick={() => setShowPanel(true)} >Object Properties</button>
+      <div className={`full-h column side-panel-container ${!showPanel ? "d_none" : ""}`}>
+        <button className="full-view sidepanel-exit" onClick={() => setShowPanel(false)} ></button>
+        <PropsPanel objects={objects} setObjects={setObjects} finalValues={finalValues} />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,70 @@
+.sidepanel-exit {
+    display: none;
+}
+body main .scene-manager .mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    
+    body main .scene-manager .mobile {
+        display: flex;
+    }
+
+    main.above {
+        position: relative;
+    }
+
+    header h1 {
+        font-size: 18px;
+    }
+    header .logo{
+        width: 35px;
+        height: 35px;
+    }
+
+    body header .download-button {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    main .scene-manager{
+        flex-direction: column;
+    }   
+    main .sidepanel-open {
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+    }
+    main .sidepanel-exit {
+        display: flex;
+        height: 50%;
+        background-color: #0000;
+        border-radius: 0;
+        border: none;
+    }
+    main button.sidepanel-exit:hover::before {
+        background-color: #0000;
+    }
+    
+    body main .side-panel {
+        width: 100%;
+        padding-bottom: 20px;
+    }
+    body main .side-panel .add_object {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        min-height: 40px;
+    }
+    body main .side-panel-container {
+        width: 100%;
+        position: absolute;
+        background-color: #0008;
+    }
+    body main .scene-manager .d_none {
+        display: none;
+    }
+    
+}

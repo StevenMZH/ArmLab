@@ -1,5 +1,6 @@
 @import url('./styles/normalize.css');
 @import url('./styles/themes.css');
+@import url('./styles/mobile.css');
 
 @import url('./styles/PropsPanel.css');
 @import url('./styles/scene.css');
