@@ -22,7 +22,7 @@ export const useDownloadDoc = () => {
         objects: objects
       };
 
-      const backendDomain = process.env.REACT_APP_API_URL || "api.dev.quackternion.purpleblue.site";
+      const backendDomain = process.env.REACT_APP_API_URL || "api.quackternion.purpleblue.site";
       const apiUrl = backendDomain.startsWith("http") ? backendDomain : `https://${backendDomain}`;
         
       const response = await fetch(`${apiUrl}/api/procedure/`, {
