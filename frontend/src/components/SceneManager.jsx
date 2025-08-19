@@ -66,7 +66,7 @@ export function SceneManager() {
 
   useEffect(() => {
     localStorage.setItem("Objects", JSON.stringify(objects));
-    console.log(objects)
+    // console.log(objects)
   }, [objects]);
 
   return (

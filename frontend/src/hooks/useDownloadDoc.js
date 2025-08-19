@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { saveAs } from "file-saver";
 
 export const useDownloadDoc = () => {
   const [loading, setLoading] = useState(false);
@@ -19,10 +20,14 @@ export const useDownloadDoc = () => {
 
       const data = {
         method: "quaternions",
-        objects: objects
+        objects: objects,
+        doc: docType,
       };
 
-      const backendDomain = process.env.REACT_APP_API_URL || "api.quackternion.purpleblue.site";
+      const backendDomain =
+        process.env.REACT_APP_API_URL ||
+        "api.quackternion.purpleblue.site";
+
       const apiUrl = backendDomain.startsWith("http") ? backendDomain : `https://${backendDomain}`;
         
       const response = await fetch(`${apiUrl}/api/procedure/`, {
@@ -30,7 +35,7 @@ export const useDownloadDoc = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...data, doc: docType }),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -38,14 +43,7 @@ export const useDownloadDoc = () => {
       }
 
       const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = docType === "pdf" ? "scene.pdf" : "scene.tex";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
+      saveAs(blob, docType === "pdf" ? "scene.pdf" : "scene.tex");
 
     } catch (err) {
       console.error(err);

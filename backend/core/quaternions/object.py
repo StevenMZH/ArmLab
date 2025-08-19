@@ -91,7 +91,7 @@ class QObject:
             self.doc.add_QTranslation(
                 name=self.name,
                 key=self.key,
-                p_i=Coords(p_before[0], p_before[1], p_after[2]),
+                p_i=Coords(p_before[0], p_before[1], p_before[2]),
                 dp_local=Coords(local_delta[0], local_delta[1], local_delta[2]),
                 dp_global=Coords(dxg, dyg, dzg),
                 p_f=self.coords,
