@@ -12,8 +12,6 @@ class LatexDoc:
     
     def QObject_definition(self):
         self.content.append((
-            "\\begin{document}"
-
             "\\section*{Definicion de Object} \n"
             "Definimos un objeto en el espacio tridimensional como el par\n"
             "\[ \\text{Object} = \\big( \\vec{p}, \, q \\big) \]\n"      
@@ -204,6 +202,7 @@ class LatexDoc:
             "\\pagestyle{fancy}\n"
             "\\fancyhead[L]{\\shorttitle}\n"
             "\\fancyhead[R]{\\thepage}\n"
+            "\\begin{document}"
         )
 
         with open(filename, "w", encoding="utf-8") as f:
