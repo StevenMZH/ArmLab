@@ -1,9 +1,12 @@
-import { QuaternionScene } from '../components/QuaternionCube';
+import { QuaternionScene } from './QuaternionScene';
 
 export function Scene({ objects, setObjects, className = "" }) {
   return (
     <div className={`card scene ${className}`}>
-      <QuaternionScene/>
+      <QuaternionScene
+        objects={objects}
+        setObjects={setObjects}
+      />
     </div>
   );
 }
