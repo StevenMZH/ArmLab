@@ -146,7 +146,7 @@ export function QuaternionScene({ objects, setObjects }) {
     <Canvas camera={{ position: [3, 3, 3] }}>
       <ambientLight intensity={1} />
       <pointLight position={[10, 10, 10]} />
-      <axesHelper args={[5]} />
+      <axesHelper args={[8]} />
       <group position={[position.x, position.y, position.z]}>
         <QuaternionCube quaternion={finalQuat} />
       </group>
