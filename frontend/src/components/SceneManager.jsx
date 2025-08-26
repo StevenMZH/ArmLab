@@ -35,7 +35,7 @@ export function SceneManager() {
             "XYZ"
           )
         );
-        quaternion.multiply(qRot);
+        quaternion.premultiply(qRot);
       } else if (t.type === "translation") {
         const translation = new THREE.Vector3(
           Number(t.x),
