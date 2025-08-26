@@ -1,9 +1,9 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useRef, useMemo} from "react";
+import { useRef, useMemo } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "@react-three/drei";
 
-export function QuaternionCube({ quaternion }) {
+export function QuaternionCube({ position, quaternion }) {
   const cubeRef = useRef();
 
   const materials = useMemo(
@@ -25,7 +25,7 @@ export function QuaternionCube({ quaternion }) {
   });
 
   return (
-    <group ref={cubeRef}>
+    <group ref={cubeRef} position={position}>
       <mesh material={materials}>
         <boxGeometry args={[0.5, 0.5, 0.5]} />
       </mesh>
@@ -37,18 +37,7 @@ export function QuaternionCube({ quaternion }) {
   );
 }
 
-// Escena principal
-export function QuaternionScene({ objects, setObjects }) {
-  const getObject = (objs) => {
-    if (!objs) return null;
-    if (Array.isArray(objs)) return objs[0] ?? null;
-    if (typeof objs === "object") {
-      const vals = Object.values(objs);
-      return vals[0] ?? null;
-    }
-    return null;
-  };
-
+export function QuaternionScene({ objects }) {
   const toNumber = (v) => {
     if (v === undefined || v === null) return 0;
     if (typeof v === "string") {
@@ -60,48 +49,58 @@ export function QuaternionScene({ objects, setObjects }) {
 
   const toRad = (v) => (toNumber(v) * Math.PI) / 180;
 
-  const obj = getObject(objects) || {
-    orientation: { x: 0, y: 0, z: 0 },
-    position: { x: 0, y: 0, z: 0 },
-    transformations: [],
+  const applyTransformations = (object) => {
+    const position = new THREE.Vector3(
+      toNumber(object.position?.x/5.0),
+      toNumber(object.position?.y/5.0),
+      toNumber(object.position?.z/5.0)
+    );
+
+    const quaternion = new THREE.Quaternion().setFromEuler(
+      new THREE.Euler(
+        toRad(object.orientation?.x ?? 0),
+        toRad(object.orientation?.y ?? 0),
+        toRad(object.orientation?.z ?? 0),
+        "XYZ"
+      )
+    );
+
+    (object.transformations || []).forEach((t) => {
+      if (!t || !t.type) return;
+      if (t.type === "translation") {
+        const translation = new THREE.Vector3(
+          toNumber(t.x/5.0),
+          toNumber(t.y/5.0),
+          toNumber(t.z/5.0)
+        );
+        position.add(translation);
+      } else if (t.type === "rotation") {
+        const rotation = new THREE.Quaternion().setFromEuler(
+          new THREE.Euler(
+            toRad(t.x ?? 0),
+            toRad(t.y ?? 0),
+            toRad(t.z ?? 0),
+            "XYZ"
+          )
+        );
+        quaternion.multiply(rotation);
+      }
+    });
+
+    return { position, quaternion };
   };
 
-  // posición base
-  const position = new THREE.Vector3(
-    (obj.position?.x) / 5.0 ?? 0,
-    (obj.position?.y) / 5.0 ?? 0,
-    (obj.position?.z) / 5.0 ?? 0
-  );
+  const transformedObjects = Object.values(objects).map(applyTransformations);
 
-  // quaternion inicial desde orientation (asume euler XYZ)
-  const initialEuler = new THREE.Euler(
-    toRad(obj.orientation?.x ?? 0),
-    toRad(obj.orientation?.y ?? 0),
-    toRad(obj.orientation?.z ?? 0),
-    "XYZ"
+  const farthestObject = transformedObjects.reduce(
+    (farthest, current) => {
+      const currentDistance = current.position.length();
+      return currentDistance > farthest.distance
+        ? { distance: currentDistance, position: current.position }
+        : farthest;
+    },
+    { distance: 0, position: new THREE.Vector3(0, 0, 0) }
   );
-  const finalQuat = new THREE.Quaternion().setFromEuler(initialEuler);
-
-  // aplica transformaciones en orden
-  (obj.transformations || []).forEach((t) => {
-    if (!t || !t.type) return;
-    if (t.type === "translation") {
-      position.add(
-        new THREE.Vector3(t.x / 5.0 ?? 0, t.y / 5.0 ?? 0, t.z / 5.0 ?? 0)
-      );
-    } else if (t.type === "rotation") {
-      // interpreta rotation como euler (x,y,z)
-      const rotEuler = new THREE.Euler(
-        toRad(t.x ?? 0),
-        toRad(t.y ?? 0),
-        toRad(t.z ?? 0),
-        "XYZ"
-      );
-      const rotQ = new THREE.Quaternion().setFromEuler(rotEuler);
-      // composicion: aplica la rotación de la transformación después de la actual
-      finalQuat.multiply(rotQ);
-    }
-  });
 
   function CameraFollower({ target, controlsRef, offset = [5, 5, 5] }) {
     const { camera } = useThree();
@@ -110,7 +109,6 @@ export function QuaternionScene({ objects, setObjects }) {
     useFrame(() => {
       if (!target) return;
 
-      // si el target no cambió desde la última vez, no hacemos nada
       if (
         target.x === lastTargetRef.current.x &&
         target.y === lastTargetRef.current.y &&
@@ -119,23 +117,19 @@ export function QuaternionScene({ objects, setObjects }) {
         return;
       }
 
-      // marcamos el nuevo target (esto indica que el objeto cambió de posición)
-      lastTargetRef.current.set(target.x, target.y, target.z);
+      lastTargetRef.current.copy(target);
 
-      // lógica de movimiento (mantiene comportamiento previo: si target > cámara, saltar hacia target+offset)
-      const nx = target.x > camera.position.x ? target.x + offset[0] : camera.position.x;
-      const ny = target.y > camera.position.y ? target.y + offset[1] : camera.position.y;
-      const nz = target.z > camera.position.z ? target.z + offset[2] : camera.position.z;
+      const nx = target.x + offset[0];
+      const ny = target.y + offset[1];
+      const nz = target.z + offset[2];
 
-      // actualiza cámara y objetivo de controls solo cuando realmente cambia la posición
-      if (nx !== camera.position.x || ny !== camera.position.y || nz !== camera.position.z) {
-        camera.position.set(nx, ny, nz);
-        if (controlsRef && controlsRef.current) {
-          controlsRef.current.target.set(target.x, target.y, target.z);
-          controlsRef.current.update();
-        }
+      camera.position.set(nx, ny, nz);
+
+      if (controlsRef && controlsRef.current) {
+        controlsRef.current.target.set(0, 0, 0); 
+        controlsRef.current.update();
       }
-      });
+    });
 
     return null;
   }
@@ -146,12 +140,22 @@ export function QuaternionScene({ objects, setObjects }) {
     <Canvas camera={{ position: [3, 3, 3] }}>
       <ambientLight intensity={1} />
       <pointLight position={[10, 10, 10]} />
-      <axesHelper args={[8]} />
-      <group position={[position.x, position.y, position.z]}>
-        <QuaternionCube quaternion={finalQuat} />
-      </group>
-      <CameraFollower target={position} controlsRef={controlsRef} offset={[5, 5, 5]} />
-      <OrbitControls />
+      <axesHelper args={[20]} />
+
+      {transformedObjects.map((obj, index) => (
+        <QuaternionCube
+          key={index}
+          position={obj.position.toArray()}
+          quaternion={obj.quaternion}
+        />
+      ))}
+
+      <CameraFollower
+        target={farthestObject.position}
+        controlsRef={controlsRef}
+        offset={[5, 5, 5]}
+      />
+      <OrbitControls ref={controlsRef} />
     </Canvas>
   );
 }
