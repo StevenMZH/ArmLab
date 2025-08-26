@@ -8,10 +8,10 @@ export function QuaternionCube({ position, quaternion }) {
 
   const materials = useMemo(
     () => [
+      new THREE.MeshStandardMaterial({ color: "#B71234" }),
+      new THREE.MeshStandardMaterial({ color: "#ff6200" }),
       new THREE.MeshStandardMaterial({ color: "#FFFFFF" }),
       new THREE.MeshStandardMaterial({ color: "#FFD500" }),
-      new THREE.MeshStandardMaterial({ color: "#B71234" }),
-      new THREE.MeshStandardMaterial({ color: "#FF5800" }),
       new THREE.MeshStandardMaterial({ color: "#009B48" }),
       new THREE.MeshStandardMaterial({ color: "#0045AD" }),
     ],
@@ -138,7 +138,7 @@ export function QuaternionScene({ objects }) {
 
   return (
     <Canvas camera={{ position: [3, 3, 3] }}>
-      <ambientLight intensity={1} />
+      <ambientLight intensity={2} />
       <pointLight position={[10, 10, 10]} />
       <axesHelper args={[20]} />
 
