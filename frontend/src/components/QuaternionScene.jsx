@@ -49,12 +49,12 @@ export function QuaternionScene({ objects }) {
 
   const toRad = (v) => (toNumber(v) * Math.PI) / 180;
 
-  const applyTransformations = (object) => {
+  const applyTransformations = (object, parentPosition = new THREE.Vector3(0, 0, 0)) => {
     const position = new THREE.Vector3(
-      toNumber(object.position?.x/5.0),
-      toNumber(object.position?.y/5.0),
-      toNumber(object.position?.z/5.0)
-    );
+      toNumber(object.position?.x / 5.0),
+      toNumber(object.position?.y / 5.0),
+      toNumber(object.position?.z / 5.0)
+    ).add(parentPosition); // Sumar la posición del padre
 
     const quaternion = new THREE.Quaternion().setFromEuler(
       new THREE.Euler(
@@ -69,9 +69,9 @@ export function QuaternionScene({ objects }) {
       if (!t || !t.type) return;
       if (t.type === "translation") {
         const translation = new THREE.Vector3(
-          toNumber(t.x/5.0),
-          toNumber(t.y/5.0),
-          toNumber(t.z/5.0)
+          toNumber(t.x / 5.0),
+          toNumber(t.y / 5.0),
+          toNumber(t.z / 5.0)
         );
         position.add(translation);
       } else if (t.type === "rotation") {
@@ -90,7 +90,13 @@ export function QuaternionScene({ objects }) {
     return { position, quaternion };
   };
 
-  const transformedObjects = Object.values(objects).map(applyTransformations);
+  const transformedObjects = Object.entries(objects).map(([id, obj]) => {
+    const parent = objects[obj.frame]; // Buscar el objeto padre por el ID en "frame"
+    const parentPosition = parent
+      ? applyTransformations(parent).position // Obtener la posición del padre
+      : new THREE.Vector3(0, 0, 0); // Si no hay padre, usar el origen
+    return applyTransformations(obj, parentPosition);
+  });
 
   const farthestObject = transformedObjects.reduce(
     (farthest, current) => {
@@ -126,7 +132,7 @@ export function QuaternionScene({ objects }) {
       camera.position.set(nx, ny, nz);
 
       if (controlsRef && controlsRef.current) {
-        controlsRef.current.target.set(0, 0, 0); 
+        controlsRef.current.target.set(0, 0, 0);
         controlsRef.current.update();
       }
     });
