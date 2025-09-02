@@ -1,7 +1,7 @@
 # Quackternion <img src="frontend/public/duck.png" width="30">
 
 <div align="center" display="flex">
-  <img src="documentation/scene.jpg" width="600"> <img src="documentation/scene2.jpg" width="600">
+  <img src="documentation/scene.jpg" width="500"> <img src="documentation/scene2.jpg" width="500">
 </div>
 
 
